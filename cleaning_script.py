@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import os
+from tkinter import Tk, filedialog, messagebox
 
 def clean_minimal_and_download(input_csv, output_folder="output"):
     # Load CSV and remove metadata rows
@@ -71,17 +72,17 @@ def clean_minimal_and_download(input_csv, output_folder="output"):
                 response = requests.get(file_url)
                 with open(os.path.join(ddc_dir, file_name), "wb") as f:
                     f.write(response.content)
-            except Exception as e:
-                print(f"Failed to download DDC file {file_name}: {e}")
+            except Exception as e:                
+                messagebox.showerror("Download Failed", f"Failed to download file {file_name}:\n{e}")
+   
+    messagebox.showinfo(
+    "Success",
+    f"Processing complete!\n\nExcel saved to:\n{excel_path}\n\nProgram files: {program_dir}\nDDC files: {ddc_dir}"
+    )
 
-    print(f"\nDone!")
-    print(f"Excel saved to: {excel_path}")
-    print(f"Program files downloaded to: {program_dir}")
-    print(f"DDC files downloaded to: {ddc_dir}")
 
 # Run file picker
 if __name__ == "__main__":
-    from tkinter import Tk, filedialog
     root = Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename(
