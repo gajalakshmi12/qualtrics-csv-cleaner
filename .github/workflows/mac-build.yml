@@ -33,10 +33,10 @@ jobs:
       - name: Zip the dist folder
         run: |
           cd dist
-          zip -r main-mac.zip main
+          zip -r cleaning_script-mac.zip cleaning_script
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-build
-          path: dist/main-mac.zip
+          path: dist/cleaning_script-mac.zip
